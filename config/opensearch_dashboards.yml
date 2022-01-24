@@ -10,11 +10,11 @@ server.host: "0.0.0.0"
 # Use the `server.rewriteBasePath` setting to tell OpenSearch Dashboards if it should remove the basePath
 # from requests it receives, and to prevent a deprecation warning at startup.
 # This setting cannot end in a slash.
-#server.basePath: ""
+server.basePath: "/kibana"
 
 # Specifies whether OpenSearch Dashboards should rewrite requests that are prefixed with
 # `server.basePath` or require that they are rewritten by your reverse proxy.
-#server.rewriteBasePath: false
+server.rewriteBasePath: true
 
 # The maximum payload size in bytes for incoming server requests.
 #server.maxPayloadBytes: 1048576
@@ -78,7 +78,7 @@ opensearch.ssl.verificationMode: none
 
 # List of OpenSearch Dashboards client-side headers to send to OpenSearch. To send *no* client-side
 # headers, set this value to [] (an empty list).
-#opensearch.requestHeadersWhitelist: [ "authorization", "x-forwarded-for","x-proxy-user","x-proxy-roles"]
+opensearch.requestHeadersWhitelist: [ "Authorization", "security_tenant", "x-forwarded-for","x-proxy-user","x-proxy-roles"]
 
 # Header names and values that are sent to OpenSearch. Any custom headers cannot be overwritten
 # by client-side headers, regardless of the opensearch.requestHeadersWhitelist configuration.
@@ -170,3 +170,9 @@ opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
+opensearch_security.auth.type: "openid"
+opensearch_security.openid.connect_url: "http://keycloak:8080/auth/realms/master/.well-known/openid-configuration"
+opensearch_security.openid.client_id: "opensearch"
+opensearch_security.openid.client_secret: "40bb2178-91f4-4f61-9287-b2b5a7e92266"
+opensearch_security.openid.base_redirect_url: "http://localhost/"
+opensearch_security.openid.verify_hostnames: false

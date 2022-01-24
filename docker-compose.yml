@@ -84,6 +84,8 @@ services:
     #   - "5601"
     environment:
       OPENSEARCH_HOSTS: '["https://opensearch-node1:9200"]'
+      SERVER_BASEPATH: /kibana
+      SERVER_REWRITEBASEPATH: "true"
     volumes:
       - ./config/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     networks:
@@ -95,10 +97,50 @@ services:
       - 80:80
     networks:
       - opensearch-net
+  postgres:
+    image: postgres:13
+    volumes:
+      - keycloak_postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    # healthcheck:
+    #   test: ["CMD", "pg_isready"]
+    restart: always
+    networks:
+      - opensearch-net
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    command: ["-Dkeycloak.frontendUrl=http://localhost/auth"]
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: Pa55w0rd
+#      KEYCLOAK_LOGLEVEL: DEBUG
+      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
+      #JDBC_PARAMS: "ssl=true"
+    ports:
+      - 8080:8080
+      - 8443:8443
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://keycloak:8080/auth"]
+      retries: 3
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - opensearch-net
 
 volumes:
   opensearch-data1:
   opensearch-data2:
+  keycloak_postgres_data:
 
 networks:
   opensearch-net:
