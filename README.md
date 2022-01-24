@@ -12,3 +12,9 @@ You can also just replace all certificates with your own certificates.
 
 
 * To create new hash passwords that you can include in internal_users.yml, run `docker-compose exec opensearch-node1 /usr/share/opensearch/plugins/opensearch-security/tools/hash.sh`
+
+## OpenID Connect Steps
+* Add a confidential "opensearch" client to Keycloak
+* Copy the client secret to the opensearch_dashboards.yml file
+* Add a realm roles mapper to the opensearch client in keycloak and set the token claim name to "roles"
+* If setting a value for SERVER_BASEPATH, must also set the basepath in opensearch_dashboards.yml
