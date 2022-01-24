@@ -63,11 +63,11 @@ config:
     # Set filtered_alias_mode to 'nowarn' to allow more than 2 filtered aliases per index silently
     #filtered_alias_mode: warn
     #do_not_fail_on_forbidden: false
-    #kibana:
+    kibana:
     # Kibana multitenancy
-    #multitenancy_enabled: true
-    #server_username: kibanaserver
-    #index: '.kibana'
+      multitenancy_enabled: true
+      server_username: kibanaserver
+      index: '.opensearch_dashboards'
     http:
       anonymous_auth_enabled: false
       xff:
@@ -84,7 +84,7 @@ config:
         description: "Authenticate via HTTP Basic against internal users database"
         http_enabled: true
         transport_enabled: true
-        order: 0
+        order: 1
         http_authenticator:
           type: basic
           challenge: false
@@ -93,7 +93,7 @@ config:
       openid_auth_domain:
         http_enabled: true
         transport_enabled: true
-        order: 1
+        order: 0
         http_authenticator:
           type: openid
           challenge: false
@@ -103,6 +103,13 @@ config:
             openid_connect_url: http://keycloak:8080/auth/realms/master/.well-known/openid-configuration
             openid_connect_idp.enable_ssl: false
             openid_connect_idp.verify_hostnames: false
+            skip_users:
+              - kibanaro
+              - kibanaserver
+              - logstash
+              - adminp
+              - kibanauser
+              - filebeat_internal
         authentication_backend:
           type: noop
       

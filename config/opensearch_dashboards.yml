@@ -78,7 +78,7 @@ opensearch.ssl.verificationMode: none
 
 # List of OpenSearch Dashboards client-side headers to send to OpenSearch. To send *no* client-side
 # headers, set this value to [] (an empty list).
-opensearch.requestHeadersWhitelist: [ "Authorization", "security_tenant", "x-forwarded-for","x-proxy-user","x-proxy-roles"]
+opensearch.requestHeadersWhitelist: [ "Authorization", "securitytenant", "x-forwarded-for","x-proxy-user","x-proxy-roles"]
 
 # Header names and values that are sent to OpenSearch. Any custom headers cannot be overwritten
 # by client-side headers, regardless of the opensearch.requestHeadersWhitelist configuration.
@@ -168,6 +168,8 @@ logging.verbose: true
 
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+opensearch_security.multitenancy.tenants.enable_global: true
+opensearch_security.multitenancy.tenants.enable_private: true
 opensearch_security.readonly_mode.roles: ["kibana_read_only"]
 opensearch_security.cookie.secure: true
 opensearch_security.auth.type: "openid"
@@ -176,3 +178,4 @@ opensearch_security.openid.client_id: "opensearch"
 opensearch_security.openid.client_secret: "40bb2178-91f4-4f61-9287-b2b5a7e92266"
 opensearch_security.openid.base_redirect_url: "http://localhost/kibana"
 opensearch_security.openid.verify_hostnames: false
+server.xsrf.whitelist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
