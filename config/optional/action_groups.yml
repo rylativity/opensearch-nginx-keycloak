@@ -1,0 +1,4 @@
+# This file can be copied into the container in the Dockerfile at /usr/share/opensearch/plugins/opensearch-security/securityconfig/action_goups.yml
+_meta:
+  type: "actiongroups"
+  config_version: 2
