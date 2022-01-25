@@ -22,4 +22,5 @@ You can also just replace all certificates with your own certificates.
 ## Weirdness with OpenSearch Dashboards Reporting
 After setting up with the steps above, Dashboards will throw an error when attempting to Generate a report or to create a new report definition for an existing resource.  It responds with an error saying index ".kibana" not found.  The .kibana index is not set anywhere so this is likely a bug. The result is that dashboards can not be reported to PDF/PNG, and the list of dashboards, saved searches, etc... do not show up in the list of available resources when attempting to create a report definition.
 To resolve:
-* After creating the dashboard or index, adding an alias of ".kibana" to the ".opensearch_dashboards_1" index resolves the reporting issues
+* After creating the dashboard or index, adding an alias of ".kibana" to the ".opensearch_dashboards*" index resolves the reporting issues.
+Note: Setting the .opensearch_dashboards value in securityconfig.yml does not work.  Must be .kibana.  Even when set to .opensearch_dashboards, errors saying "no index .kibana"
