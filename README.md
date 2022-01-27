@@ -15,3 +15,4 @@ You can also just replace all certificates with your own certificates.
 * Note: If setting a value for SERVER_BASEPATH, must also set the basepath for oidc redirect in opensearch_dashboards.yml
 * * Run `docker-compose up -d --build opensearch-node1 opensearch-dashboards`
 * Note: If you need to modify your config and restart the containers, it's easiest to just remove the opensearch-node1 and opensearch-dashboards containers, delete the associated docker volume, and rerun `docker-compose up -d --build opensearch-node1 opensearch-dashboards`
+* Wait for the containers to start and navigate to http://localhost/kibana in your browser (use the admin user to login to keycloak if you get redirected to keycloak to login)
