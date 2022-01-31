@@ -128,9 +128,6 @@ services:
     ports:
       - 8080:8080
       - 8443:8443
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://keycloak:8080/auth"]
-      retries: 3
     restart: always
     depends_on:
       - postgres

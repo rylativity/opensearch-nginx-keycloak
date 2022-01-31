@@ -18,3 +18,6 @@ You can also just replace all certificates with your own certificates.
 * Copy the client secret to the opensearch_dashboards.yml file
 * Add a realm roles mapper to the opensearch client in keycloak and set the token claim name to "roles"
 * If setting a value for SERVER_BASEPATH, must also set the basepath for oidc redirect in opensearch_dashboards.yml
+
+## To run this docker-compose stack on a remote host
+* Update the command under the keycloak in docker-compose.yml: `command: ["-Dkeycloak.frontendUrl=http://localhost/auth"]` replacing `localhost` with the IP address or resolvable domain name of your server.
