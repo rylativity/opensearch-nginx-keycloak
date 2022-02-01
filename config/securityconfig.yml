@@ -101,6 +101,7 @@ config:
             subject_key: preferred_username
             roles_key: roles
             openid_connect_url: http://keycloak:8080/auth/realms/master/.well-known/openid-configuration
+            jwks_uri: http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs
             openid_connect_idp.enable_ssl: false
             openid_connect_idp.verify_hostnames: false
             skip_users:
