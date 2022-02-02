@@ -29,6 +29,16 @@ This container stack is configured to use TLS(HTTPS) by default.  If you don't w
 * Note: If you need to modify your config and restart the containers, it's easiest to just remove the opensearch-node1 and opensearch-dashboards containers, delete the associated docker volume, and rerun `docker-compose up -d --build opensearch-node1 opensearch-dashboards`
 * Wait for the containers to start and navigate to http://localhost/kibana in your browser (use the admin user to login to keycloak if you get redirected to keycloak to login)
 
+### Adding new users
+Since OpenSearch is using Keycloak as its OpenID Connect provider, we can create new users and grant them access to OpenSearch by adding them to Keycloak and giving them the appropriate roles.  The admin user in Keycloak is granted the "admin" role by default, and the "admin" role (referred to as a "backend_role" by OpenSearch) is mapped to the internal "all_access" role in Opensearch by default.  This means that, by default, the admin user in Keycloak has superuser privileges in Opensearch.
+
+If you are going to add a new user, you must grant them a role with an appropriate role mapping set up in OpenSearch or they will not be able to login.  You can create additional role mappings in OpenSearch through the "admin" user if you want to create custom roles in Keycloak and have them map to OpenSearch roles.  This can be very useful for providing limited or restricted access to your Opensearch/Opensearch-Dashboards containers.  For more information, see https://opensearch.org/docs/latest/security-plugin/access-control/users-roles/#roles_mappingyml  
+
+Alternatively, if you simply grant your new user the role of "admin" in Keycloak, they will be granted the "all_access" role in Opensearch.
+
+### Using a different Keycloak realm
+To use a Keycloak realm other than the "master" realm, search (CTRL + SHIFT + F) for all instances of "realms/master" and replace it with the appropriate realm name.  You must configure the opensearch client as described in steps 2 and 3 of the "Setup" section above in your new realm.  You will likely need to create new users in your new realm as described in the "Adding new users" section above.
+
 ### To run this docker-compose stack on a remote host
 * Update the command under the keycloak in docker-compose.yml: `command: ["-Dkeycloak.frontendUrl=https://localhost/auth"]` replacing `localhost` with the IP address or resolvable domain name of your server.
 * Update the value of opensearch_security.openid.base_redirect_url: in opensearch_dashboards.yml, replacing `localhost` with the IP address or resolvable domain name of your server.
