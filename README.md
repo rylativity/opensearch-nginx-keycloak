@@ -1,6 +1,7 @@
 # OpenSearch Docker Compose Configuration
 
 ## Setup Steps
+You must have docker, docker-compose, and openssl (if you don't plan to provide your own certificates) installed.  You can find dDetailed, official installation instructions for your operating system for each of these tools online.
 
 If you want to change any of the certificate information, modify the certs/generate_certs.sh script and the opensearch.yml lines that include CN,O,OU etc...  The admin and node certificate information in opensearch.yml and generate_certs.sh must match. If you want to serve your connection over HTTPS with NginX, you can also modify the subject alternative names in the site.cnf (for example, if you want the certificate to be valid for both domain.com and *.domain.com).
 You can also just replace all certificates with your own certificates.
@@ -12,7 +13,7 @@ This container stack is configured to use TLS(HTTPS) by default.  If you don't w
 * Modify the line `opensearch_security.openid.base_redirect_url: "https://localhost/kibana"` in opensearch_dashboards.yml, replacing "https" with "http"
 * See note at the bottom of this README about secure cookies if you are planning to deploy on a remote host (i.e. not "localhost") without using TLS (not recommended)
 
-### 1) Generating the Certificates
+### 1) Generating the Certificates (If you want to use your own certificates, skip these steps and simply place your certificates in the certs/ directory with the appropriate names)
 * Run `cd certs` to change into the certs directory
 * Run `chmod +x generate_certs.sh` to make the cert-generation script executable
 * Run `./generate_certs.sh` to generate the certificates.  In addition to the certificates required for Opensearch security, this will also generate a site key and certificate for serving your NginX container with HTTPS.
