@@ -9,7 +9,7 @@ You can also just replace all certificates with your own certificates.
 * Run `./generate_certs.sh` to generate the certificates
 * You may need to modify the permissions of the certificates so that the container can read them.  Run `chmod a+r ./*`
 * Run `docker-compose up -d postgres keycloak nginx` and allow them to initialize
-* Add a confidential "opensearch" client to Keycloak's master realm (go to http://localhost/auth and login with the admin username and password specified in the docker-compose.yml under the keycloak section; make sure you also set the Valid Redirect URLS to "\*" or "http://localhost/\*" or "http://localhost/kibana/\*")
+* Add a confidential "opensearch" client to Keycloak's master realm (go to http://localhost/auth and login with the admin username and password specified in the docker-compose.yml under the keycloak section; make sure you also set the Valid Redirect URLS to "\*" or "http://localhost/*" or "http://localhost/kibana/*")
 * Copy the client secret for the opensearch client in Keycloak to the opensearch_dashboards.yml file
 * Add a realm roles mapper to the opensearch client in keycloak and set the token claim name to "roles" (go to clients > opensearch > mappers > "Add Builtin" > Select "realm roles", and change the token claim from "realmAccess.roles" to "roles"
 * Note: If setting a value for SERVER_BASEPATH in docker-compose.yml under the opensearch-dashboards service, you must also set the basepath for oidc redirect in opensearch_dashboards.yml
