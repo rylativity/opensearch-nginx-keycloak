@@ -92,9 +92,11 @@ services:
       - opensearch-net
   nginx:
     build:
-      context: ./nginx_conf/
+      context: .
+      dockerfile: ./nginx_conf/Dockerfile
     ports:
       - 80:80
+      - 443:443
     networks:
       - opensearch-net
   postgres:
@@ -112,7 +114,7 @@ services:
       - opensearch-net
   keycloak:
     image: quay.io/keycloak/keycloak:latest
-    command: ["-Dkeycloak.frontendUrl=http://localhost/auth"]
+    command: ["-Dkeycloak.frontendUrl=https://localhost/auth"]
     environment:
       DB_VENDOR: POSTGRES
       DB_ADDR: postgres
@@ -123,8 +125,6 @@ services:
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: Pa55w0rd
 #      KEYCLOAK_LOGLEVEL: DEBUG
-      # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
-      #JDBC_PARAMS: "ssl=true"
     ports:
       - 8080:8080
       - 8443:8443

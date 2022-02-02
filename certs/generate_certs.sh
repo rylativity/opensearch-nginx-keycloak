@@ -11,8 +11,13 @@ openssl genrsa -out node-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in node-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node-key.pem
 openssl req -new -key node-key.pem -out node.csr -subj '/C=US/ST=Virginia/L=Falls Church/O=MYORG/CN=opensearch'
 openssl x509 -req -days 3650 -in node.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node.pem
+#Site cert (for using HTTPS with NginX)
+openssl genrsa -out "site.key" 4096
+openssl req -new -key "site.key" -out "site.csr" -sha256 -subj "/C=US/ST=Virginia/L=Falls Church/O=MYORG/CN=localhost"
+openssl x509 -req -days 750 -in "site.csr" -sha256 -CA "root-ca.pem" -CAkey "root-ca-key.pem" -CAcreateserial -out "site.crt" -extfile "site.cnf" -extensions server
 # Cleanup
 rm admin-key-temp.pem
 rm admin.csr
 rm node-key-temp.pem
 rm node.csr
+rm site.csr
