@@ -175,7 +175,7 @@ opensearch_security.cookie.secure: true
 opensearch_security.auth.type: "openid"
 opensearch_security.openid.connect_url: "http://keycloak:8080/auth/realms/master/.well-known/openid-configuration"
 opensearch_security.openid.client_id: "opensearch"
-opensearch_security.openid.client_secret: "40bb2178-91f4-4f61-9287-b2b5a7e92266"
+opensearch_security.openid.client_secret: "25441a55-9a6e-4d86-9eda-40ac91e460d5"
 opensearch_security.openid.base_redirect_url: "https://localhost/kibana"
 opensearch_security.openid.verify_hostnames: false
 server.xsrf.whitelist: ["/_opendistro/_security/saml/acs/idpinitiated", "/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
