@@ -1,4 +1,4 @@
-FROM opensearchproject/opensearch:1.2.4
+FROM opensearchproject/opensearch:1.3.2
 
 COPY ./certs/* /usr/share/opensearch/config/
 COPY ./config/opensearch.yml /usr/share/opensearch/config/opensearch.yml

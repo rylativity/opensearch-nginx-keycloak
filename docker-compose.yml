@@ -24,7 +24,7 @@ services:
     volumes:
       - opensearch-data1:/usr/share/opensearch/data
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:1.2.0
+    image: opensearchproject/opensearch-dashboards:1.3.2
     container_name: opensearch-dashboards
     # ports:
     #   - 5601:5601
